@@ -160,28 +160,59 @@ var Janitor = {
 	sprite: null,
 	forward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
+			console.log(Janitor.sprite.rotation);
 			if(cwc(Janitor.sprite.x, Janitor.sprite.y - 1))
-				Janitor.sprite.y--;
+				if (Janitor.sprite.rotation == 0 || Janitor.sprite.rotation == 180) {
+					Janitor.sprite.rotation == 0 ? Janitor.sprite.y--:Janitor.sprite.y++;
+				} else {
+					Janitor.sprite.rotation==90 ? Janitor.sprite.x++:Janitor.sprite.x--;
+				}
 		}})
 	},
 	left: (amt)=>{
 		updates.push({amount: amt || 90, action: ()=>{
 			if(cwc(Janitor.sprite.x - 1, Janitor.sprite.y))
-				Janitor.sprite.x--;
+			if (Janitor.sprite.rotation == 90 || Janitor.sprite.rotation == 270) {
+				Janitor.sprite.rotation == 90 ? Janitor.sprite.y--:Janitor.sprite.y++;
+			} else {
+				Janitor.sprite.rotation==180 ? Janitor.sprite.x++:Janitor.sprite.x--;
+			}
 		}})
 	},
 	right: (amt)=>{
 		updates.push({amount: amt || 90, action: ()=>{
 			if(cwc(Janitor.sprite.x + 1, Janitor.sprite.y))
-				Janitor.sprite.x++;
+			if (Janitor.sprite.rotation == 90 || Janitor.sprite.rotation == 270) {
+				Janitor.sprite.rotation == 270 ? Janitor.sprite.y--:Janitor.sprite.y++;
+			} else {
+				Janitor.sprite.rotation==180 ? Janitor.sprite.x++:Janitor.sprite.x--;
+			}
 		}})
 	},
 	backward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
 			if(cwc(Janitor.sprite.x, Janitor.sprite.y + 1))
-				Janitor.sprite.y++;
+			if (Janitor.sprite.rotation == 0 || Janitor.sprite.rotation == 180) {
+				Janitor.sprite.rotation == 180 ? Janitor.sprite.y--:Janitor.sprite.y++;
+			} else {
+				Janitor.sprite.rotation==270 ? Janitor.sprite.x++:Janitor.sprite.x--;
+			}
 		}})
 	},
-	turnRight: (amt) =>{updates.push({amount:amt || 90, action: ()=>{Janitor.sprite.rotation++;}})},
-	turnLeft: (amt) =>{updates.push({amount:amt || 90, action: ()=>{Janitor.sprite.rotation--;}})}
+	turnRight: (amt) =>{
+		updates.push({amount:amt || 90, action: ()=>{
+			if (Janitor.sprite.rotation>359) {
+				Janitor.sprite.rotation-=360;
+			}
+			Janitor.sprite.rotation++;
+		}})
+	},
+	turnLeft: (amt) =>{
+		updates.push({amount:amt || 90, action: ()=>{
+			if (Janitor.sprite.rotation<0) {
+				Janitor.sprite.rotation+=360;
+			}
+			Janitor.sprite.rotation--;
+		}})
+	}
 }
