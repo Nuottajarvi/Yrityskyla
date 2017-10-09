@@ -1,7 +1,7 @@
 var updates = [];
 var nextUpdate = {amount: 0, action: ()=>{}};
 
-var janitorDefaultPos = {x: 70, y: 480};
+var janitorDefaultPos = {x: 50, y: 450};
 
 function init(){
 	//CODE MIRROR
@@ -24,15 +24,12 @@ function init(){
 	var stage = new createjs.Stage("codeCanvas");
 	var pohja = new createjs.Bitmap("./pohjapiirros.png");
 	stage.addChild(pohja);
-	console.log(stage);
-	console.log(pohja);
+
 	var sotku = new createjs.Bitmap("./dirt2.png");
 	stage.addChild(sotku);
 
 
 	var janitorsprite = new createjs.Bitmap("./janitor.png");
-	janitorsprite.regX=32;
-	janitorsprite.regY=32;
 	janitorsprite.x = janitorDefaultPos.x;
 	janitorsprite.y = janitorDefaultPos.y;
 	Janitor.sprite = janitorsprite;
@@ -62,6 +59,5 @@ var Janitor = {
 	left: (amt)=>{updates.push({amount: amt || 90, action: ()=>{Janitor.sprite.x--;}})},
 	right: (amt)=>{updates.push({amount: amt || 90, action: ()=>{Janitor.sprite.x++;}})},
 	backwards: (amt)=>{updates.push({amount: amt || 50, action: ()=>{Janitor.sprite.y++;}})},
-	turnRight: (amt) =>{updates.push({amount:amt || 90, action: ()=>{Janitor.sprite.rotation++;}})},
-	turnLeft: (amt) =>{updates.push({amount:amt || 90, action: ()=>{Janitor.sprite.rotation--;}})}
+
 }
