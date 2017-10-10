@@ -69,7 +69,7 @@ function init(){
 
 	//CREATEJS
 	stage = new createjs.Stage("codeCanvas");
-	var pohja = new createjs.Bitmap("./pohjapiirros.png");
+	var pohja = new createjs.Bitmap("./img/pohjapiirros.png");
 	stage.addChild(pohja);
 
 	var canvas = document.getElementById("codeCanvas");
@@ -88,7 +88,7 @@ function init(){
 		colliders.push(rect);
 	}
 
-	Janitor.sprite = new createjs.Bitmap("./janitor.png");
+	Janitor.sprite = new createjs.Bitmap("./img/janitor.png");
 	Janitor.sprite.regX = 32;
 	Janitor.sprite.regY = 32;
 	Janitor.sprite.x = janitorDefaultPos.x;
@@ -115,7 +115,7 @@ function drawSmudges(){
 	}
 	smudges = [];
 	for(var i = 0; i < smudgePositions.length; i++){
-		var smudge = new createjs.Bitmap("./smudge.png");
+		var smudge = new createjs.Bitmap("./img/smudge.png");
 		smudge.x = smudgePositions[i].x;
 		smudge.y = smudgePositions[i].y;
 		smudge.regX = 16;
@@ -156,7 +156,7 @@ var Janitor = {
 	sprite: null,
 	forward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
-			
+
 			var rotationRad = -(Janitor.sprite.rotation+90) * Math.PI / 180;
 
 			var x = -Math.cos(rotationRad);
@@ -170,7 +170,7 @@ var Janitor = {
 	},
 	backward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
-			
+
 			var rotationRad = -(Janitor.sprite.rotation+90) * Math.PI / 180;
 
 			var x = -Math.cos(rotationRad);

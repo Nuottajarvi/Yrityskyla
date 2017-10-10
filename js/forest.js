@@ -57,7 +57,7 @@ function init(){
 		colliders.push(rect);
 	}
 
-	Harvester.sprite = new createjs.Bitmap("./metsakone.png");
+	Harvester.sprite = new createjs.Bitmap("./img/metsakone.png");
 	Harvester.sprite.regX = 64;
 	Harvester.sprite.regY = 64;
 	Harvester.sprite.x = harvesterDefaultPos.x;
@@ -84,8 +84,8 @@ function drawTrees(){
 	}
 	trees = [];
 	for(var j = 0; j < 10; j++){
-		for(var i = 0; i < 18; i++){	
-			var tree = new createjs.Bitmap("./tree.png");
+		for(var i = 0; i < 18; i++){
+			var tree = new createjs.Bitmap("./img/tree.png");
 			tree.x = i * 48 + 32 + 24 * (j % 2);
 			tree.y = j * 48 + 32;
 			tree.scaleX = 0.5;
@@ -136,7 +136,7 @@ var Harvester = {
 	sprite: null,
 	forward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
-			
+
 			var rotationRad = -(Harvester.sprite.rotation+180) * Math.PI / 180;
 
 			var x = -Math.cos(rotationRad);
@@ -150,7 +150,7 @@ var Harvester = {
 	},
 	backward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
-			
+
 			var rotationRad = -(Harvester.sprite.rotation+180) * Math.PI / 180;
 
 			var x = -Math.cos(rotationRad);
