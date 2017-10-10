@@ -44,7 +44,6 @@ var colliderPositions = [
 
 var smudges = [];
 var colliders = [];
-var janitorsprite;
 var stage;
 
 function init(){
@@ -60,6 +59,7 @@ function init(){
 		drawSmudges();
 		Janitor.sprite.x = janitorDefaultPos.x;
 		Janitor.sprite.y = janitorDefaultPos.y;
+		Janitor.sprite.rotation = 0;
 		updates = [];
 		nextUpdate = {amount: 0, action: ()=>{}};
 		var value = editor.getValue();
@@ -75,9 +75,6 @@ function init(){
 	var canvas = document.getElementById("codeCanvas");
 	var ctx = canvas.getContext('2d');
 
-	var pixel = ctx.getImageData(50,50,1,1);
-	console.log(pixel);
-
 	drawSmudges();
 
 	for(var i = 0; i < colliderPositions.length; i++){
@@ -91,15 +88,14 @@ function init(){
 		colliders.push(rect);
 	}
 
-	janitorsprite = new createjs.Bitmap("./janitor.png");
-	janitorsprite.regX = 32;
-	janitorsprite.regY = 32;
-	janitorsprite.x = janitorDefaultPos.x;
-	janitorsprite.y = janitorDefaultPos.y;
-	janitorsprite.scaleX = 0.5;
-	janitorsprite.scaleY = 0.5;
-	Janitor.sprite = janitorsprite;
-	stage.addChild(janitorsprite);
+	Janitor.sprite = new createjs.Bitmap("./janitor.png");
+	Janitor.sprite.regX = 32;
+	Janitor.sprite.regY = 32;
+	Janitor.sprite.x = janitorDefaultPos.x;
+	Janitor.sprite.y = janitorDefaultPos.y;
+	Janitor.sprite.scaleX = 0.5;
+	Janitor.sprite.scaleY = 0.5;
+	stage.addChild(Janitor.sprite);
 
 	createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", ()=>{update(stage)});
@@ -107,7 +103,7 @@ function init(){
 
 function checkSmudgeCollision(){
 	for(var i = 0; i < smudges.length; i++){
-		if(Math.abs(janitorsprite.x - smudges[i].x) < 30 && Math.abs(janitorsprite.y - smudges[i].y) < 30){
+		if(Math.abs(Janitor.sprite.x - smudges[i].x) < 30 && Math.abs(Janitor.sprite.y - smudges[i].y) < 30){
 			stage.removeChild(smudges[i]);
 		}
 	}
@@ -160,46 +156,33 @@ var Janitor = {
 	sprite: null,
 	forward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
-			console.log(Janitor.sprite.rotation);
-			if(cwc(Janitor.sprite.x, Janitor.sprite.y - 1))
-				if (Janitor.sprite.rotation == 0 || Janitor.sprite.rotation == 180) {
-					Janitor.sprite.rotation == 0 ? Janitor.sprite.y--:Janitor.sprite.y++;
-				} else {
-					Janitor.sprite.rotation==90 ? Janitor.sprite.x++:Janitor.sprite.x--;
-				}
-		}})
-	},
-	left: (amt)=>{
-		updates.push({amount: amt || 90, action: ()=>{
-			if(cwc(Janitor.sprite.x - 1, Janitor.sprite.y))
-			if (Janitor.sprite.rotation == 90 || Janitor.sprite.rotation == 270) {
-				Janitor.sprite.rotation == 90 ? Janitor.sprite.y--:Janitor.sprite.y++;
-			} else {
-				Janitor.sprite.rotation==180 ? Janitor.sprite.x++:Janitor.sprite.x--;
-			}
-		}})
-	},
-	right: (amt)=>{
-		updates.push({amount: amt || 90, action: ()=>{
-			if(cwc(Janitor.sprite.x + 1, Janitor.sprite.y))
-			if (Janitor.sprite.rotation == 90 || Janitor.sprite.rotation == 270) {
-				Janitor.sprite.rotation == 270 ? Janitor.sprite.y--:Janitor.sprite.y++;
-			} else {
-				Janitor.sprite.rotation==180 ? Janitor.sprite.x++:Janitor.sprite.x--;
+			
+			var rotationRad = -(Janitor.sprite.rotation+90) * Math.PI / 180;
+
+			var x = -Math.cos(rotationRad);
+			var y = Math.sin(rotationRad);
+
+			if(cwc(Janitor.sprite.x + x, Janitor.sprite.y + y)){
+				Janitor.sprite.x+=x;
+				Janitor.sprite.y+=y;
 			}
 		}})
 	},
 	backward: (amt)=>{
 		updates.push({amount: amt || 50, action: ()=>{
-			if(cwc(Janitor.sprite.x, Janitor.sprite.y + 1))
-			if (Janitor.sprite.rotation == 0 || Janitor.sprite.rotation == 180) {
-				Janitor.sprite.rotation == 180 ? Janitor.sprite.y--:Janitor.sprite.y++;
-			} else {
-				Janitor.sprite.rotation==270 ? Janitor.sprite.x++:Janitor.sprite.x--;
+			
+			var rotationRad = -(Janitor.sprite.rotation+90) * Math.PI / 180;
+
+			var x = -Math.cos(rotationRad);
+			var y = Math.sin(rotationRad);
+
+			if(cwc(Janitor.sprite.x - x, Janitor.sprite.y - y)){
+				Janitor.sprite.x-=x;
+				Janitor.sprite.y-=y;
 			}
 		}})
 	},
-	turnRight: (amt) =>{
+	right: (amt) =>{
 		updates.push({amount:amt || 90, action: ()=>{
 			if (Janitor.sprite.rotation>359) {
 				Janitor.sprite.rotation-=360;
@@ -207,7 +190,7 @@ var Janitor = {
 			Janitor.sprite.rotation++;
 		}})
 	},
-	turnLeft: (amt) =>{
+	left: (amt) =>{
 		updates.push({amount:amt || 90, action: ()=>{
 			if (Janitor.sprite.rotation<0) {
 				Janitor.sprite.rotation+=360;

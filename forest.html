@@ -1,0 +1,35 @@
+<html>
+<head>
+<link href="./app.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="codemirror-5.26.0/lib/codemirror.css">
+<link rel="stylesheet" href="codemirror-5.26.0/theme/monokai.css">
+<script type="text/javascript" src="codemirror-5.26.0/lib/codemirror.js"></script>
+<script type="text/javascript" src="codemirror-5.26.0/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="./forest.js"></script>
+</head>
+<body onload="init();">
+	<canvas id="codeCanvas" width="1000" height="550"></canvas>
+	<textarea id="text-area" class="codemirror-textarea"></textarea>
+	<button id="run">Suorita</button>
+	<p>Aja kaikki puut nurin kirjoittamalla koodia <br><br>Metsäkonetta voi liikuttaa komennoilla<br>eteenpäin - <b>Harvester.forward()</b><br>
+	taaksepäin - <b>Harvester.backward()</b><br>
+	Matkaa voi säätää syöttämällä numeron mukaan esim.<br>
+	<b>Harvester.forward(50)</b><br><br>
+	Metsäkonetta voi kääntää komennolla<br>
+	<b>Harvester.right()</b><br>
+	<b>Harvester.left()</b><br>
+	tai tietyn asteluvun verran syöttämällä numeron mukaan esim. <br>
+	<b>Harvester.right(45)</b><br><br>
+	Kokeillaan tässä tehtävässä käyttää silmukkaa. Tee silmukka kirjoittamalla<br>
+	<b>for(i in count(4)){}</b><br>
+	4 on tällä hetkellä toistojen määrä.<br>
+	Silmukan sisällä olevat toiminnot tulevat sulkeiden sisään näin:<br>
+	<b>for(i in count(4)){<br>    Harvester.forward(10)<br>    Harvester.right()<br>}</b>
+
+	</b>
+
+	</p>
+</body>
+</html>

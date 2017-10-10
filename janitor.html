@@ -7,11 +7,25 @@
 <link rel="stylesheet" href="codemirror-5.26.0/theme/monokai.css">
 <script type="text/javascript" src="codemirror-5.26.0/lib/codemirror.js"></script>
 <script type="text/javascript" src="codemirror-5.26.0/mode/javascript/javascript.js"></script>
-<script type="text/javascript" src="./app.js"></script>
+<script type="text/javascript" src="./janitor.js"></script>
 </head>
 <body onload="init();">
 	<canvas id="codeCanvas" width="1000" height="550"></canvas>
 	<textarea id="text-area" class="codemirror-textarea"></textarea>
 	<button id="run">Suorita</button>
+	<p>Liikuta talonmiestä kirjoittamalla koodia ja siivoa kaikki likatahrat lattialla. <br><br>Talonmiestä voi liikuttaa komennoilla<br>eteenpäin - <b>Janitor.forward()</b><br>
+	taaksepäin - <b>Janitor.backward()</b><br>
+	Matkaa voi säätää syöttämällä numeron mukaan esim.<br>
+	<b>Janitor.forward(50)</b><br><br>
+	Talonmiestä voi kääntää komennolla<br>
+	<b>Janitor.right()</b><br>
+	<b>Janitor.left()</b><br>
+	tai tietyn asteluvun verran syöttämällä numeron mukaan esim. <br>
+	<b>Janitor.right(45)</b><br><br>
+	Kokeile aluksi vaikka
+	<br>
+	<b>Janitor.right()</b><br>
+	<b>Janitor.forward(50)</b>
+	</p>
 </body>
 </html>
